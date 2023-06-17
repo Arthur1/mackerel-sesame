@@ -20,6 +20,8 @@ jobs:
         with:
           go-version-file: go.mod
       - run: |
+          go install github.com/mfridman/tparse@latest
+      - run: |
           set -o pipefail && go test ./... -json | go run github.com/mfridman/tparse -all
       - if: always()
         run: |
