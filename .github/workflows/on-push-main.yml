@@ -5,4 +5,4 @@ on:
 
 jobs:
   test-go:
-    uses: ./.github/workflows/callable/test-go.yml
+    uses: ./.github/workflows/wf-test-go.yml
