@@ -1,0 +1,8 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-go:
+    uses: ./.github/workflows/callable/test-go.yml
