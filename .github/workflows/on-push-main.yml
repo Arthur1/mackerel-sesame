@@ -6,3 +6,9 @@ on:
 jobs:
   test-go:
     uses: ./.github/workflows/wf-test-go.yml
+
+  build-push-image:
+    needs: [test-go]
+    uses: ./.github/workflows/wf-build-image.yml
+    with:
+      needs-push: true
