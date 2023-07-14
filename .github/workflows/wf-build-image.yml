@@ -16,7 +16,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: set up QEMU
         uses: docker/setup-qemu-action@v2
-      - name: set up Docker Buildx
+      - id: buildx
+        name: set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
           platforms: linux/amd64,linux/arm64
@@ -39,5 +40,6 @@ jobs:
           push: ${{ inputs.needs-push }}
           context: .
           file: ./docker/mackerel-sesame/Dockerfile
+          platforms: ${{ steps.buildx.outputs.platforms }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
