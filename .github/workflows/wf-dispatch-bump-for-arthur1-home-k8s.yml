@@ -25,3 +25,26 @@ jobs:
           new-image-tag: ${{ github.event.inputs.new-image-tag }}
           target-file: manifests/iot-monitor/mackerel-sesame/cronjob.yml
           token: ${{ steps.app-token.outputs.token }}
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: 364898
+          private-key: ${{ secrets.ARTHUR1_BOT_PRIVATE_KEY }}
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const imageName = "ghcr.io/arthur1/mackerel-sesame"
+            const newImageTag = "${{ github.event.inputs.new-image-tag }}"
+            const targetFile = "manifests/iot-monitor/mackerel-sesame/cronjob.yml"
+            const result = await github.rest.repos.createDispatchEvent({
+              owner: 'Arthur1',
+              repo: 'home-k8s',
+              event_type: 'dump-image-version',
+              client_payload: {"image-name": imageName, "new-image-tag": newImageTag, "target-file": targetFile},
+            })
+            console.log(result);
