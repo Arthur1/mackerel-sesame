@@ -10,6 +10,10 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write
+  actions: write
+
 jobs:
   dispatch-for-iot-monitor-mackerel-sesame:
     runs-on: ubuntu-latest
