@@ -12,3 +12,10 @@ jobs:
     uses: ./.github/workflows/wf-build-image.yml
     with:
       needs-push: true
+
+  dispatch-bump-for-arthur1-home-k8s:
+    needs: [build-push-image]
+    uses: ./.github/workflows/wf-dispatch-bump-for-arthur1-home-k8s.yml
+    with:
+      new-image-tag: ${{ needs.build-push-image.outputs.tag }}
+    secrets: inherit

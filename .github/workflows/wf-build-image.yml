@@ -4,6 +4,9 @@ on:
       needs-push:
         required: true
         type: boolean
+    outputs:
+      tag:
+        value: ${{ jobs.build.outputs.tag }}
 
 permissions:
   contents: read
@@ -12,6 +15,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
       - name: set up QEMU
@@ -43,3 +48,7 @@ jobs:
           platforms: ${{ steps.buildx.outputs.platforms }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: get one of tags
+        id: tag
+        run: |
+          echo "tag=${{ steps.meta.outputs.version }}" >> "$GITHUB_OUTPUT"
