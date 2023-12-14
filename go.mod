@@ -1,6 +1,6 @@
 module github.com/Arthur1/mackerel-sesame
 
-go 1.20
+go 1.21.4
 
 require (
 	github.com/caarlos0/env/v8 v8.0.0

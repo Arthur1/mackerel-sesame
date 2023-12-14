@@ -1,4 +1,4 @@
-FROM golang:1.20-bullseye as builder
+FROM golang:1.21-bookworm as builder
 
 WORKDIR /opt
 
@@ -7,7 +7,7 @@ RUN go mod download
 COPY . ./
 RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o "mackerel-sesame" ./cmd/mackerel-sesame
 
-FROM gcr.io/distroless/base-debian11
+FROM gcr.io/distroless/base-debian12:latest
 
 COPY --from=builder /opt/mackerel-sesame /mackerel-sesame
 CMD ["/mackerel-sesame"]
