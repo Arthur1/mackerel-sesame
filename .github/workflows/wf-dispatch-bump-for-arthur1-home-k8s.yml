@@ -1,0 +1,24 @@
+on:
+  workflow_call:
+    inputs:
+      new-image-tag:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      new-image-tag:
+        required: true
+        type: string
+
+permissions:
+  actions: write
+
+jobs:
+  dispatch-for-iot-monitor-mackerel-sesame:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Arthur1/home-k8s/actions/dispatch-bump-image-version@main
+        with:
+          image-name: ghcr.io/arthur1/mackerel-sesame
+          new-image-tag: ${{ github.event.inputs.new-image-tag }}
+          target-file: manifests/iot-monitor/mackerel-sesame/cronjob.yml
