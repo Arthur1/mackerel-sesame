@@ -1,3 +1,5 @@
+name: CI for main branch
+
 on:
   push:
     branches:
@@ -8,14 +10,21 @@ jobs:
     uses: ./.github/workflows/wf-test-go.yml
 
   build-push-image:
-    needs: [test-go]
     uses: ./.github/workflows/wf-build-image.yml
     with:
-      needs-push: true
-
-  dispatch-bump-for-arthur1-home-k8s:
-    needs: [build-push-image]
-    uses: ./.github/workflows/wf-dispatch-bump-for-arthur1-home-k8s.yml
-    with:
-      new-image-tag: ${{ needs.build-push-image.outputs.tag }}
-    secrets: inherit
+      needs-push: false
+  
+  tagpr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: 364898
+          private-key: ${{ secrets.ARTHUR1_BOT_PRIVATE_KEY }}
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+      - uses: Songmu/tagpr@v1
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

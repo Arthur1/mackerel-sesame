@@ -1,3 +1,5 @@
+name: bump for arthur1/home-k8s
+
 on:
   workflow_call:
     inputs:
