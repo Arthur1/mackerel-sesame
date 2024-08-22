@@ -36,4 +36,16 @@ func TestGetDeviceStatus(t *testing.T) {
 		assert.NoError(t, err)
 		assert.Empty(t, cmp.Diff(want, got))
 	})
+
+	t.Run("return error when exceeds api rate limit", func(t *testing.T) {
+		httpmock.Activate()
+		defer httpmock.DeactivateAndReset()
+		httpmock.RegisterResponder(
+			http.MethodGet, "https://app.candyhouse.co/api/sesame2/id",
+			httpmock.NewBytesResponder(http.StatusTooManyRequests, []byte("{}")),
+		)
+		client := NewClient("")
+		_, err := client.GetDeviceStatus("id")
+		assert.Error(t, err)
+	})
 }

@@ -36,6 +36,10 @@ func (c *Client) GetDeviceStatus(deviceUUID string) (*DeviceStatus, error) {
 	if err != nil {
 		return nil, err
 	}
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("http error with status code %d", res.StatusCode)
+	}
+
 	resBody, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
