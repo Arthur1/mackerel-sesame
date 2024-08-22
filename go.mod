@@ -2,6 +2,8 @@ module github.com/Arthur1/mackerel-sesame
 
 go 1.22.2
 
+toolchain go1.23.0
+
 require (
 	github.com/caarlos0/env/v8 v8.0.0
 	github.com/jarcoal/httpmock v1.3.1

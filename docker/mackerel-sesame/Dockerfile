@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM golang:1.22-bookworm as builder
+FROM --platform=$BUILDPLATFORM golang:1.23-bookworm as builder
 ARG TARGETARCH
 
 WORKDIR /opt
