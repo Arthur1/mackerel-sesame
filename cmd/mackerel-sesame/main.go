@@ -5,7 +5,7 @@ import (
 	"log"
 
 	mackerelsesame "github.com/Arthur1/mackerel-sesame"
-	"github.com/caarlos0/env/v8"
+	"github.com/caarlos0/env/v11"
 )
 
 // TODO: DeviceName と UUID をセットで複数渡せるように
