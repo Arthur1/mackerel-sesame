@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 )
 
 type Client struct {
@@ -25,8 +26,11 @@ type DeviceStatus struct {
 }
 
 func (c *Client) GetDeviceStatus(deviceUUID string) (*DeviceStatus, error) {
-	url := fmt.Sprintf("https://app.candyhouse.co/api/sesame2/%s", deviceUUID)
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	apiUrl, err := url.JoinPath("https://app.candyhouse.co/api/sesame2", deviceUUID)
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequest(http.MethodGet, apiUrl, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -36,6 +40,10 @@ func (c *Client) GetDeviceStatus(deviceUUID string) (*DeviceStatus, error) {
 	if err != nil {
 		return nil, err
 	}
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("http error with status code %d", res.StatusCode)
+	}
+
 	resBody, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
