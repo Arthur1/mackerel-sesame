@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.1.1](https://github.com/Arthur1/mackerel-sesame/compare/v0.1.0...v0.1.1) - 2024-08-26
+- ci: run test on oldstable go version by @Arthur1 in https://github.com/Arthur1/mackerel-sesame/pull/8
+
 ## [v0.1.0](https://github.com/Arthur1/mackerel-sesame/commits/v0.1.0) - 2024-08-22
 - Configure Renovate by @renovate in https://github.com/Arthur1/mackerel-sesame/pull/1
 - Update docker/setup-buildx-action action to v3 by @renovate in https://github.com/Arthur1/mackerel-sesame/pull/4
