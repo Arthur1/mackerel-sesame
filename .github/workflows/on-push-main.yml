@@ -7,7 +7,12 @@ on:
 
 jobs:
   test-go:
+    strategy:
+      matrix:
+        version: [stable, oldstable]
     uses: ./.github/workflows/wf-test-go.yml
+    with:
+      go-version: ${{ matrix.version }}
 
   build-push-image:
     uses: ./.github/workflows/wf-build-image.yml
