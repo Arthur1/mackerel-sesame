@@ -20,7 +20,7 @@ jobs:
     outputs:
       tag: ${{ steps.tag.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
