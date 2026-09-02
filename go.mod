@@ -6,7 +6,7 @@ toolchain go1.23.0
 
 require (
 	github.com/caarlos0/env/v11 v11.2.2
-	github.com/jarcoal/httpmock v1.3.1
+	github.com/jarcoal/httpmock v1.4.2
 	github.com/mackerelio/mackerel-client-go v0.34.0
 	github.com/stretchr/testify v1.9.0
 )
